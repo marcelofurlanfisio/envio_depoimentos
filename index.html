@@ -173,6 +173,7 @@ footer .metaline a{color:var(--text-link)}
 .count{font-family:var(--font-data);font-size:var(--fs-micro);letter-spacing:var(--ls-mono);color:var(--text-muted);text-align:right}
 .count.warn{color:var(--c-danger)}
 textarea.input.tall{min-height:150px}
+.intro .thanks{margin-top:var(--sp-6);font-family:var(--font-display);font-size:var(--fs-h3);line-height:1.35;color:var(--text-heading);max-width:var(--measure-tight)}
 .intro .steps{list-style:none;margin:var(--sp-6) 0 0;padding:0;display:grid;gap:var(--sp-3);font-size:var(--fs-body-sm)}
 .intro .steps li{display:flex;gap:var(--sp-3)}
 .intro .steps .n{flex:0 0 28px;font-family:var(--font-data);font-weight:500;color:var(--text-accent)}
@@ -199,11 +200,11 @@ textarea.input.tall{min-height:150px}
       <div class="rule" aria-hidden="true"></div>
       <p class="lead">Seu relato ajuda outros fisioterapeutas e estudantes a decidir se o curso é para eles, e me ajuda a melhorar a cada turma.</p>
       <ol class="steps">
-        <li><span class="n">01</span><span>Escolha o curso que você fez e escreva com suas palavras.</span></li>
+        <li><span class="n">01</span><span>Marque o curso (ou os cursos) que você fez e escreva com suas palavras.</span></li>
         <li><span class="n">02</span><span>Eu leio e confiro tudo antes de publicar.</span></li>
-        <li><span class="n">03</span><span>Se aprovado, seu depoimento entra na página do curso com seu nome, seu @ e a foto do seu perfil.</span></li>
+        <li><span class="n">03</span><span>Se aprovado, seu depoimento entra no rodapé da página do curso, com o seu nome, o seu @ e a foto do seu perfil.</span></li>
       </ol>
-      <div class="metaline"><span>Leva 2 minutos</span><span>Só publico após sua autorização</span></div>
+      <p class="thanks">Seu depoimento é muito importante para mim. Agradeço antecipadamente a sua disponibilidade.</p>
     </section>
 
     <section class="card" id="depoimento" aria-labelledby="form-titulo">
@@ -216,19 +217,18 @@ textarea.input.tall{min-height:150px}
         <!-- Anti-spam. Pessoas não veem este campo -->
         <div class="hp" aria-hidden="true"><label>Não preencha <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
 
-        <div class="field" data-field="curso">
-          <label class="label" for="curso">Qual curso você fez?</label>
-          <select class="input" id="curso" name="curso" required>
-            <option value="">Selecione</option>
-            <option value="mobilizacao-neural">Mobilização Neural</option>
-            <option value="tmm-coluna">Terapia Manual Moderna, Coluna Vertebral</option>
-            <option value="tmm-membros-atm">Terapia Manual Moderna, Membros &amp; ATM</option>
-            <option value="liberacao-miofascial">Liberação Miofascial</option>
-            <option value="pos-graduacao">Pós-graduação</option>
-            <option value="outro">Outro curso ou workshop</option>
-          </select>
-          <span class="err">Escolha o curso.</span>
-        </div>
+        <fieldset class="field" data-field="curso">
+          <legend class="label">Sobre qual curso é o seu depoimento? <span class="opt">(marque quantos quiser)</span></legend>
+          <div class="checks cols">
+            <label class="check"><input type="checkbox" name="curso" value="mobilizacao-neural"><span>Mobilização Neural</span></label>
+            <label class="check"><input type="checkbox" name="curso" value="liberacao-miofascial"><span>Liberação Miofascial</span></label>
+            <label class="check"><input type="checkbox" name="curso" value="tmm-coluna"><span>Terapia Manual Moderna<small>Coluna Vertebral</small></span></label>
+            <label class="check"><input type="checkbox" name="curso" value="tmm-membros-atm"><span>Terapia Manual Moderna<small>Membros &amp; ATM</small></span></label>
+            <label class="check"><input type="checkbox" name="curso" value="pos-graduacao"><span>Pós-graduação</span></label>
+            <label class="check"><input type="checkbox" name="curso" value="outro"><span>Outro curso ou workshop</span></label>
+          </div>
+          <span class="err">Marque pelo menos um curso.</span>
+        </fieldset>
 
         <div class="row two">
           <div class="field" data-field="nome">
@@ -249,8 +249,8 @@ textarea.input.tall{min-height:150px}
         </div>
 
         <div class="field" data-field="comentario">
-          <label class="label" for="comentario">Como foi o curso para você?</label>
-          <textarea class="input tall" id="comentario" name="comentario" maxlength="600" required placeholder="O que você achou do curso, o que aprendeu e o que mudou na sua prática."></textarea>
+          <label class="label" for="comentario">Escreva seu depoimento</label>
+          <textarea class="input tall" id="comentario" name="comentario" maxlength="600" required placeholder="Conte como foi o curso, o que você aprendeu e o que mudou na sua prática."></textarea>
           <div class="count" id="contador" aria-live="polite">0 / 600</div>
           <span class="err">Escreva pelo menos 20 caracteres.</span>
         </div>
@@ -339,7 +339,8 @@ const VERSAO_TERMO = "v1";
 
   // Link por curso: depoimento.html?curso=liberacao-miofascial já vem com o curso marcado
   const pre = new URLSearchParams(location.search).get('curso');
-  if (pre && form.elements.curso.querySelector('option[value="' + CSS.escape(pre) + '"]')) form.elements.curso.value = pre;
+  const preBox = pre && form.querySelector('input[name="curso"][value="' + CSS.escape(pre) + '"]');
+  if (preBox) preBox.checked = true;
 
   // Instagram: aceita @usuario, usuario ou o link do perfil, e guarda só o usuário
   function normIg(v){
@@ -367,7 +368,6 @@ const VERSAO_TERMO = "v1";
   }
 
   const rules = {
-    curso: v => v !== '',
     nome: v => v.trim().length >= 2,
     instagram: v => igOk(normIg(v)),
     comentario: v => v.trim().length >= MIN
@@ -381,6 +381,8 @@ const VERSAO_TERMO = "v1";
       el.setAttribute('aria-invalid', String(!valid));
       if (!valid){ ok = false; first = first || el; }
     }
+    const algumCurso = form.querySelectorAll('input[name="curso"]:checked').length > 0;
+    if (!setInvalid('curso', !algumCurso)){ ok = false; first = first || form.querySelector('input[name="curso"]'); }
     if (!setInvalid('consentimento', !form.elements.consentimento.checked)){ ok = false; first = first || form.elements.consentimento; }
     if (first) first.focus();
     return ok;
@@ -407,7 +409,7 @@ const VERSAO_TERMO = "v1";
     if (!validate()) return;
 
     const data = new URLSearchParams();
-    data.append('curso', form.elements.curso.value);
+    data.append('curso', Array.from(form.querySelectorAll('input[name="curso"]:checked')).map(i => i.value).join(','));
     data.append('nome', form.elements.nome.value.trim());
     data.append('instagram', normIg(form.elements.instagram.value));
     data.append('comentario', form.elements.comentario.value.trim());
