@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-W4CV6MG7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
@@ -34,7 +40,7 @@
   --page-margin:24px;--page-margin-lg:64px;
   --radius-sm:2px;--radius-md:4px;--radius-xl:14px;
   --bw-hairline:1px;--bw-default:1.5px;--bw-rule:3px;--bw-marker:6px;
-  --fs-display-2:58px;--fs-h2:27px;--fs-h3:22px;--fs-body-lg:19px;--fs-body:17px;--fs-body-sm:15px;--fs-label:13px;--fs-micro:11px;
+  --fs-display-2:58px;--fs-h2:36px;--fs-h3:22px;--fs-body-lg:19px;--fs-body:17px;--fs-body-sm:15px;--fs-label:13px;--fs-micro:11px;
   --ls-display:-0.02em;--ls-heading:-0.01em;--ls-eyebrow:0.14em;--ls-mono:0.04em;
   --measure:64ch;--measure-tight:44ch;
   --shadow-xs:0 1px 2px rgba(16,24,32,.06);--shadow-sm:0 2px 6px rgba(16,24,32,.07);
@@ -51,13 +57,13 @@
 
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
-body{margin:0;font-family:var(--font-ui);font-size:var(--fs-body);line-height:1.55;color:var(--text-body);background:var(--surface-page);-webkit-font-smoothing:antialiased}
-h1,h2,h3{font-family:var(--font-display);color:var(--text-heading);margin:0;font-weight:600;letter-spacing:var(--ls-heading);line-height:1.22}
+body{margin:0;font-family:var(--font-ui);font-size:var(--fs-body);line-height:1.6;color:var(--text-body);background:var(--surface-page);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--font-display);color:var(--text-heading);margin:0;font-weight:600;letter-spacing:var(--ls-heading);line-height:1.18}
 p{margin:0;text-wrap:pretty}
 a{color:var(--text-link);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color var(--dur-fast) var(--ease-standard)}
 a:hover{color:var(--text-link-hover);text-decoration-thickness:2px}
 :focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
-.wrap{max-width:1280px;margin:0 auto;padding:0 var(--page-margin)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--page-margin)}
 @media (min-width:900px){.wrap{padding:0 var(--page-margin-lg)}}
 
 /* Componentes do sistema, em HTML puro */
@@ -86,7 +92,7 @@ a:hover{color:var(--text-link-hover);text-decoration-thickness:2px}
 .callout strong{display:block;color:inherit;font-weight:600;margin-bottom:2px}
 
 /* Barra superior */
-.topbar{position:sticky;top:0;z-index:10;height:64px;display:flex;align-items:center;background:var(--surface-page);border-bottom:var(--bw-hairline) solid transparent;transition:background-color var(--dur-base) var(--ease-standard),border-color var(--dur-base) var(--ease-standard)}
+.topbar{position:sticky;top:0;z-index:20;height:64px;display:flex;align-items:center;background:var(--surface-page);border-bottom:var(--bw-hairline) solid transparent;transition:background-color var(--dur-base) var(--ease-standard),border-color var(--dur-base) var(--ease-standard)}
 .topbar{border-bottom-color:#dccdb2}
 .topbar.scrolled{background:rgba(252,249,243,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom-color:#dccdb2}
 .topbar .wrap{width:100%;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4)}
